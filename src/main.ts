@@ -15,7 +15,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.use(helmet());
-
+  console.log('--- Starting with ---');
+  console.log(JSON.stringify(NodeProcesses));
   await app.listen(NodeProcesses.PORT || 3000);
 }
 

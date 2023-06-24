@@ -14,7 +14,7 @@
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
-    "build:production": "export NODE_ENV=production && npm ci && npm run build && node dist/main.js"
+    "build:production": "npm ci && export NODE_ENV=production && npm run build && node dist/main.js"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
