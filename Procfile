@@ -1,1 +1,1 @@
-web: npm run build:production
+web: sudo npm run build:production

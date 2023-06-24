@@ -6,12 +6,12 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
+  root(): string {
     return this.appService.getHello();
   }
 
   @Get('/user')
-  getHello(@Res() res): string {
+  users(@Res() res): string {
     return res.status(200).json([{ userId: 1, username: 'vasia' }]);
   }
 }
