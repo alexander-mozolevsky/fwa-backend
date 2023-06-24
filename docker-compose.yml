@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  database:
+    image: postgres
+    restart: always
+    ports:
+      - 4999:5432
+    environment:
+      POSTGRES_DB: fwa
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: zHWcyQF=Uy^e!8s@
+  server:
+    build: ./
+    command: npm run start:dev
+    volumes:
+      - './:/usr/src/app'
+    ports:
+      - 5001:3000
+    depends_on:
+      - database
