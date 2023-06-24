@@ -1,1 +1,1 @@
-web: sudo npm run build:production
+web: npm ci && npm run build && node dist/main.js && mkdir 1

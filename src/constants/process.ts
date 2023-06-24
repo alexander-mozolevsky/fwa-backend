@@ -1,9 +1,9 @@
 export const NodeProcesses = () => ({
   PORT: process.env.PORT,
-  POSTGRES_DIALECT: process.env.POSTGRES_DIALECT,
-  POSTGRES_PORT: process.env.POSTGRES_PORT,
-  POSTGRES_USER: process.env.POSTGRES_USER,
-  POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
-  POSTGRES_HOST: process.env.POSTGRES_HOST,
-  POSTGRES_DB: process.env.POSTGRES_DB,
+  RDS_DIALECT: process.env.RDS_DIALECT,
+  RDS_PORT: process.env.RDS_PORT,
+  RDS_USERNAME: process.env.RDS_USERNAME,
+  RDS_PASSWORD: process.env.RDS_PASSWORD,
+  RDS_HOSTNAME: process.env.RDS_HOSTNAME,
+  RDS_DB_NAME: process.env.RDS_DB_NAME,
 });
