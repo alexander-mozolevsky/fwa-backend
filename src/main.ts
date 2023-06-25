@@ -35,7 +35,10 @@ async function bootstrap() {
         .addTag('recommendations')
         .build();
 
-    app.use(helmet());
+    app.use(helmet({
+        contentSecurityPolicy: false,
+        crossOriginOpenerPolicy: false,
+    }));
     app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
 
     const PORT = NodeProcesses.PORT || 8080;
@@ -43,7 +46,7 @@ async function bootstrap() {
     console.log(`----- Starting the server on the ${PORT} -----`);
 
     const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('api', app, document);
+    SwaggerModule.setup('docs', app, document);
 
     await app.listen(PORT);
 }
