@@ -15,6 +15,6 @@ services:
     volumes:
       - './:/usr/src/app'
     ports:
-      - 5001:3000
+      - 5001:8080
     depends_on:
       - database

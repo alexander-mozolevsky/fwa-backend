@@ -1,29 +1,33 @@
+import { NestFactory } from '@nestjs/core';
+import helmet from 'helmet';
+import 'module-alias/register';
+import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
 import * as path from 'path';
 
-import { NestFactory } from '@nestjs/core';
+import { NodeProcesses } from '@constants/process';
+
 import { AppModule } from './app.module';
-import { NodeProcesses } from './constants/process';
-import helmet from 'helmet';
 
 const fullPath =
-  process.env.NODE_ENV?.trim() === 'development'
-    ? '.env'
-    : path.resolve('/', '/opt/elasticbeanstalk/deployment/env');
+    process.env.NODE_ENV?.trim() === 'development'
+        ? '.env'
+        : path.resolve('/', '/opt/elasticbeanstalk/deployment/env');
 
 require('dotenv').config({
-  path: fullPath,
+    path: fullPath,
 });
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+    const app = await NestFactory.create(AppModule, { logger: ['error'] });
 
-  app.use(helmet());
-  console.log('--- Starting with ---');
-  console.log(fullPath);
-  console.log(process.env.NODE_ENV);
-  console.log(process.env.RDS_DB_NAME);
-  console.log(NodeProcesses());
-  await app.listen(NodeProcesses().PORT || 8080);
+    app.use(helmet());
+    app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
+
+    const PORT = NodeProcesses().PORT || 8080;
+
+    console.log(`----- Starting the server on the ${PORT} -----`);
+
+    await app.listen(PORT);
 }
 
 bootstrap();
