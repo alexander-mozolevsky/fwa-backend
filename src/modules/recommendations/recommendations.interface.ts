@@ -1,7 +1,9 @@
 export interface GetRecommendationsProps {
-    height: number;
-    weight: number;
-    dob: number;
+    username: string;
+}
+
+export interface GetHistoryRecommendationsProps {
+    username: string;
 }
 
 export interface RecommendationProps {
