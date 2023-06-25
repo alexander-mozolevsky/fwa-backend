@@ -3,6 +3,7 @@ import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 't
 import { ENTITIES } from '@constants/entities';
 
 import { UserEntity } from './user.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity({ name: ENTITIES.RECOMMENDATIONS })
 export class RecommendationEntity {
@@ -13,9 +14,19 @@ export class RecommendationEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
+    @ApiProperty({
+        type: Number,
+        description: 'Defines priority 0-1',
+        example: 0.95,
+    })
     @Column({ type: 'float' })
     priority: number;
 
+    @ApiProperty({
+        type: String,
+        description: 'Defines recommendation',
+        example: 'Drink water',
+    })
     @Column({ type: 'varchar' })
     recommendation: string;
 

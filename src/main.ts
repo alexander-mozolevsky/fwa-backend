@@ -1,4 +1,4 @@
-import helmet from 'helmet';
+import 'module-alias/register';
 import * as path from 'path';
 
 const fullPath =
@@ -12,14 +12,15 @@ require('dotenv').config({
 
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import helmet from 'helmet';
 
-import 'module-alias/register';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-
 
 import { NodeProcesses } from '@constants/processes';
 
 import { AppModule } from './app.module';
+
+
 
 console.log('--- NodeProcesses ---');
 console.log(JSON.stringify(NodeProcesses, null, 3));
@@ -35,10 +36,12 @@ async function bootstrap() {
         .addTag('recommendations')
         .build();
 
-    app.use(helmet({
-        contentSecurityPolicy: false,
-        crossOriginOpenerPolicy: false,
-    }));
+    app.use(
+        helmet({
+            contentSecurityPolicy: false,
+            crossOriginOpenerPolicy: false,
+        }),
+    );
     app.useLogger(app.get(WINSTON_MODULE_NEST_PROVIDER));
 
     const PORT = NodeProcesses.PORT || 8080;

@@ -1,27 +1,25 @@
 import { Controller, Get, Query, Res } from '@nestjs/common';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { Response } from 'express';
+import { RecommendationEntity } from 'src/entities/recommendation.entity';
 
 import { ServerError } from '@constants/errors';
 
-import {
-    GetHistoryRecommendationsProps,
-    GetRecommendationsProps,
-} from './recommendations.interface';
 import { RecommendationsService } from './recommendations.service';
-
-// POST /users - create USER
-// GET /recommendations?username=user1 - get and save history recommendations
-// GET /recommendations/history?username=user1 - my history recommendations
 
 @Controller('recommendations')
 export class RecommendationsController {
     constructor(private readonly recommendationsService: RecommendationsService) {}
 
     @Get()
-    async getNewRecommendations(
-        @Res() res: Response,
-        @Query('username') username: GetRecommendationsProps['username'],
-    ) {
+    @ApiOperation({ summary: 'Generate new recommendations' })
+    @ApiResponse({
+        status: 200,
+        description: 'Generate new recommendations for user',
+        type: RecommendationEntity,
+        isArray: true,
+    })
+    async getNewRecommendations(@Res() res: Response, @Query('username') username: string) {
         try {
             const recommendations = await this.recommendationsService.getNewRecommendations({
                 username,
@@ -38,10 +36,14 @@ export class RecommendationsController {
     }
 
     @Get('history')
-    async getHistoryRecommendations(
-        @Res() res: Response,
-        @Query('username') username: GetHistoryRecommendationsProps['username'],
-    ) {
+    @ApiOperation({ summary: 'History recommendations' })
+    @ApiResponse({
+        status: 200,
+        description: 'Get users saved recommendations history',
+        type: RecommendationEntity,
+        isArray: true,
+    })
+    async getHistoryRecommendations(@Res() res: Response, @Query('username') username: string) {
         try {
             const recommendations = await this.recommendationsService.getHistoryRecommendations({
                 username,

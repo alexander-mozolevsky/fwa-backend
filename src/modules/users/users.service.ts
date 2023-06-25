@@ -15,14 +15,14 @@ export class UsersService {
     ) {}
 
     public async findUser(username: string): Promise<UserEntity> {
-        return await this.usersTable.findOne({ where: { username } });
+        return await this.usersTable.findOneBy({ username });
     }
 
     public async throwIfUserDoesNotExist(username: string): Promise<void> {
-        const user = await this.findUser(username);
+        const user = await this.findUser(String(username));
 
         if (!user) {
-            throw new ServerError(HttpStatus.CONFLICT, 'User does not exist');
+            throw new ServerError(HttpStatus.NOT_FOUND, 'User does not exist');
         }
     }
 

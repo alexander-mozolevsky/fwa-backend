@@ -1,5 +1,7 @@
 import { Body, Controller, Post, Put, Query, Res } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { Response } from 'express';
+import { UserEntity } from 'src/entities/user.entity';
 
 import { ServerError } from '@constants/errors';
 
@@ -11,7 +13,13 @@ export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
     @Put()
-    async update(@Res() res, @Body() body: MutationUsersBody, @Query('username') username: string) {
+    @ApiOperation({ summary: 'Update user' })
+    @ApiResponse({ status: 200, description: 'User object', type: UserEntity })
+    async update(
+        @Res() res: Response,
+        @Body() body: MutationUsersBody,
+        @Query('username') username: string,
+    ) {
         try {
             const response = await this.usersService.updateUser(username, body);
 
@@ -27,8 +35,8 @@ export class UsersController {
 
     @Post()
     @ApiOperation({ summary: 'Create user' })
-    @ApiResponse({ status: 200, description: 'User object' })
-    async create(@Res() res, @Body() body: MutationUsersBody) {
+    @ApiResponse({ status: 200, description: 'User object', type: UserEntity })
+    async create(@Res() res: Response, @Body() body: MutationUsersBody) {
         try {
             const response = await this.usersService.createUser(body);
 
