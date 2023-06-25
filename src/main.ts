@@ -1,4 +1,5 @@
 import 'module-alias/register';
+import * as path from 'path';
 
 const fullPath =
     process.env.NODE_ENV?.trim() === 'development'
@@ -14,7 +15,6 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
 import { WINSTON_MODULE_NEST_PROVIDER } from 'nest-winston';
-import * as path from 'path';
 
 import { NodeProcesses } from '@constants/processes';
 
