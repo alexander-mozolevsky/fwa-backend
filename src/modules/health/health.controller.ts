@@ -4,6 +4,6 @@ import { Controller, Get, Res } from '@nestjs/common';
 export class HealthController {
     @Get()
     health(@Res() response): string {
-        return response.status(200).json({ health: 100 });
+        return response.status(200).json({ health: 100, version: 1 });
     }
 }
