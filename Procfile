@@ -1,1 +1,1 @@
-web: npm ci && npm run build && node dist/main.js
+web: npm run build:production

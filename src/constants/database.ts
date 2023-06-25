@@ -12,5 +12,8 @@ export const getDatabaseConfig = (): TypeOrmModuleOptions => ({
     database: NodeProcesses.RDS_DB_NAME,
     entities: [path.join(__dirname, '../entities/**.entity.*')],
     synchronize: true,
-    ssl: true,
+    ssl: {
+        require: true,
+        rejectUnauthorized: false,
+    },
 });
